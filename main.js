@@ -1,92 +1,135 @@
-function getComputerChoice() {
-    let choice = ['Rock', 'Paper','Scissors'];
-      return choice[Math.floor(Math.random()*3)];
-      
-    }
-    console.log(getComputerChoice());
 
-    function playRound(playerSelection, computerSelection) {
-        playerSelection = playerSelection.toLowerCase();
-        computerSelection = computerSelection.toLowerCase();
-         console.log(playerSelection)
-        console.log(computerSelection)
-        
-      if (playerSelection == 'rock' && computerSelection == 'rock') {
-        return ("Play again!");
-      } else if (playerSelection == 'rock' && computerSelection == 'paper') {
-        return ("You Lose! Paper beats Rock");
-      } else if (playerSelection == 'rock' && computerSelection == 'scissors') {
-        return ("You Win! Rock beats Scissors");
-        
-      } else if (playerSelection == 'paper' && computerSelection == 'paper') {
-        return("Play again!");
-      } else if (playerSelection == 'paper' && computerSelection == 'rock') {
-        return("You Win! Paper beats Rock");
-      } else if (playerSelection == 'paper' && computerSelection == 'scissors') {
-        return ("You Lose! Scissors beats Paper");
-      
-      } else if (playerSelection == 'scissors' && computerSelection == 'scissors') {
-        return ("Play again!");
-      } else if (playerSelection == 'scissors' && computerSelection == 'rock') {
-        return ("You Lose! Rock beats Scissors");
-      } else if (playerSelection == 'scissors' && computerSelection == 'paper') {
-        return ("You Win! Scissors beats Paper");
-       }
-        
-      }
-
-      function Game() {
-  
-        //Tally up the outcomes
-       let Tally = [];
-       for (let i = 0; i < 5; ++i) {
-       
-         //Screening to input correctly
-         let playerSelection = prompt("Enter Paper, Rock or Scissors");
-         if(!playerSelection) {  
-           alert("Play again");
-           break
-         } else if ( (playerSelection!='rock') || (playerSelection!='paper') || (playerSelection!='scissors')) {  
-           alert("Enter the correct word");
-           break
-         } 
          
+       //DOM Manipulation
+
+       let paper = document.querySelector('#b1');;
+       let rock = document.querySelector('#b2');
+       let scissors = document.querySelector('#b3');
+      
+       let output = document.querySelector('.container1');
+       let compOutput = document.querySelector('#display');
+       let humanWins = document.querySelector('.container2');
+       let compWins = document.querySelector('.container3');
+       
+       
+       let winCount = 0;
+       let loseCount = 0;
+       let tieCount = 0;
+
+      paper.addEventListener('click',(e) => {    
+        playRound(e);
+        counter(playRound(e));    
+   });
+
+      rock.addEventListener('click',(e) => {    
+        playRound(e);
+        counter(playRound(e));    
+   });
+      scissors.addEventListener('click',(e) => {    
+        playRound(e);
+        counter(playRound(e));    
+   });
+
+
+      function getComputerChoice() {
+        let choice = ['rock', 'paper','scissors'];
+          return choice[Math.floor(Math.random()*3)];
+          
+        }
+
+        
+     
+    
+       function playRound(e) {
          let computerSelection = getComputerChoice();
-         let outcome = playRound(playerSelection, computerSelection);
-         console.log(outcome);
-         Tally.push(outcome);
-       }
-       
-         //Counters (for game logic)
-         
-         let tieCount = 0;
-         let winCount = 0;
-         let loseCount = 0;
-       
-        for (let i = 0; i < 5; i++) { 
-         if (Tally[i]=='Tie') {
-           tieCount++
-          } else if (Tally[i]=='Win'){
-           winCount++
-          } else if (Tally[i]=='Lose') {
-           loseCount++
+         let playerSelection = e.target.innerText;
+         let outcome;
+             
+         if (playerSelection == 'rock' && computerSelection == 'rock') {
+           output.textContent = "Play again!";
+           compOutput.textContent = "rock";
+           outcome = 'tie';
+
+          } else if (playerSelection == 'rock' && computerSelection == 'paper') {
+            output.textContent = "Paper beats Rock";
+            compOutput.textContent = "paper";
+            outcome = 'lose';
+            
+          } else if (playerSelection == 'rock' && computerSelection == 'scissors') {
+            output.textContent = "Rock beats Scissors";
+            compOutput.textContent = "scissors";
+            outcome =  'win';
+            
+                   
+          } else if (playerSelection == 'paper' && computerSelection == 'paper') {
+            output.textContent = "Play again!";
+            compOutput.textContent = "paper";
+            outcome =  'tie';
+            
+          } else if (playerSelection == 'paper' && computerSelection == 'rock') {
+            output.textContent = "Paper beats Rock";
+            compOutput.textContent = "rock";
+            outcome =  'win';
+            
+            
+          } else if (playerSelection == 'paper' && computerSelection == 'scissors') {
+            output.textContent = "Scissors beats Paper";
+            compOutput.textContent = "scissors";
+            outcome = 'lose';
+            
+          
+          } else if (playerSelection == 'scissors' && computerSelection == 'scissors') {
+            output.textContent = "Play again!";
+            compOutput.textContent = "scissors";
+            outcome =  'tie';
+            
+          } else if (playerSelection == 'scissors' && computerSelection == 'rock') {
+            output.textContent = "Rock beats Scissors";
+            compOutput.textContent = "rock";
+            outcome =  'lose';
+            
+          } else if (playerSelection == 'scissors' && computerSelection == 'paper') {
+            output.textContent = "Scissors beats Paper";
+            compOutput.textContent = "paper";
+            outcome =  'win';           
+
           }
+
+          return  outcome;
          }
+
          
-        //logic to declare winner, loser or stalemate
+        function counter(x) {
+        
+          if(x == 'lose') {  
+            loseCount += 1;
+            compWins.textContent = "Computer Wins!  " + loseCount;
+            
+           } else if (x == 'win'){  
+            winCount += 1;
+            humanWins.textContent = "Human Wins!  " + winCount;
+            
+           } else {
+            tieCount += 1;
+           }
+
+           if (winCount== 5) {
+            output.textContent = "You are the Man¡";
+            
+            
+           } else if (loseCount == 5) {
+            output.textContent = "You lost brother¡";
+          } 
+          console.log(winCount);
+            console.log(loseCount);
+        };
        
-          if (winCount>= 3) {
-         console.log("You are the Man...")
-       } else if (tieCount >= 3) {
-         console.log("Stalemate....play again")
-       } else if (loseCount >= 3) {
-         console.log("You lost brother...")
-       } else if ((winCount == 2) && (loseCount>=1)) {
-         console.log("You are still the Man...")
-       } else if ((winCount == 1) && (loseCount>=2)) {
-         console.log("You lost brother...")
-       } else if ((winCount == 1) && (loseCount==1)) {
-         console.log("Stalemate....play again")
-       } 
          
-       }
+
+       
+
+             
+         
+            
+
+          
