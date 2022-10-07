@@ -12,9 +12,10 @@
        let compWins = document.querySelector('.container3');
        
        
-       let winCount = 0;
+       let  winCount = 0;
        let loseCount = 0;
        let tieCount = 0;
+       
 
       paper.addEventListener('click',(e) => {    
         playRound(e);
@@ -100,7 +101,8 @@
 
          
         function counter(x) {
-        
+         
+
           if(x == 'lose') {  
             loseCount += 1;
             compWins.textContent = "Computer Wins!  " + loseCount;
@@ -109,7 +111,7 @@
             winCount += 1;
             humanWins.textContent = "Human Wins!  " + winCount;
             
-           } else {
+           } else if (x == 'tie') {
             tieCount += 1;
            }
 
@@ -117,12 +119,26 @@
             output.textContent = "You are the Man¡";
             
             
-           } else if (loseCount == 5) {
+           } if (loseCount == 5) {
             output.textContent = "You lost brother¡";
-          } 
-          console.log(winCount);
-            console.log(loseCount);
-        };
+            
+            
+          } if ((winCount > 5) && (loseCount<=4) && (tieCount>=0)) {
+            reseter();
+          } if ((loseCount > 5) && (winCount<=4) && (tieCount>=0)) {
+            reseter();
+          }
+         
+        }
+
+        function reseter() {
+          winCount = 0;
+          loseCount = 0;
+          output.textContent = ' ';
+          humanWins.textContent = ' ';
+          compWins.textContent = ' ';
+          compOutput.textContent = ' ';
+        }
        
          
 
