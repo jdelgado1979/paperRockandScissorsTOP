@@ -99,6 +99,15 @@
           return  outcome;
          }
 
+
+        function reseter() {
+          winCount = 0;
+          loseCount = 0;
+          output.textContent = ' ';
+          humanWins.textContent = ' ';
+          compWins.textContent = ' ';
+          compOutput.textContent = ' ';
+        }
          
         function counter(x) {
          
@@ -113,32 +122,24 @@
             
            } else if (x == 'tie') {
             tieCount += 1;
-           }
-
-           if (winCount== 5) {
+           
+           } if (winCount== 5) {
             output.textContent = "You are the Man¡";
-            
-            
+            setTimeout(reseter, 1500);
+                       
            } if (loseCount == 5) {
             output.textContent = "You lost brother¡";
+            setTimeout(reseter, 1500);
             
-            
-          } if ((winCount > 5) && (loseCount<=4) && (tieCount>=0)) {
+           } if (winCount > 5) {  
             reseter();
-          } if ((loseCount > 5) && (winCount<=4) && (tieCount>=0)) {
+
+           } if (loseCount > 5) {  
             reseter();
-          }
-         
+           }
+                   
         }
 
-        function reseter() {
-          winCount = 0;
-          loseCount = 0;
-          output.textContent = ' ';
-          humanWins.textContent = ' ';
-          compWins.textContent = ' ';
-          compOutput.textContent = ' ';
-        }
        
          
 
